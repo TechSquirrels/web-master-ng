@@ -1,0 +1,30 @@
+<div class="card">
+    <h5>Add an activity: </h5>
+    <div class="grid p-fluid mt-3">
+
+        <div class="field col-12 md:col-4">
+            <span class="p-float-label">
+                <input type="text" id="inputtext" pInputText [(ngModel)]="activityName">
+                <label for="inputtext">Activity name</label>
+            </span>
+        </div>
+        <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+                <input type="text" id="inputtext" pInputText [(ngModel)]="duration">
+                <label for="inputtext">Duration in minutes</label>
+            </span>
+        </div>
+        <div class="ld col-12 md:col-4">
+            <span class="p-float-label">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="groups" [(ngModel)]="value10" optionLabel="name"></p-dropdown>
+                <label for="dropdown">Dropdown</label>
+            </span>
+        </div>
+
+
+        <div class="flex flex-row">
+            <span class="p-button">Done</span>
+            <span class="secondary p-button">Cancel</span>
+        </div>
+    </div>
+</div>

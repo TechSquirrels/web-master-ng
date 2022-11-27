@@ -1,0 +1,53 @@
+{
+	"data": [
+		{
+            "id": "1000",
+            "name": "Spiteful Bears",
+            "image": "chakra-bracelet.jpg",
+            "members": 4,
+            "category": "Friends"
+        },
+		{
+            "id": "1001",
+            "name": "Black Lions",
+            "image": "chakra-bracelet.jpg",
+            "members": 12,
+            "category": "Friends"
+        },
+		{
+            "id": "1002",
+            "name": "Delta Commandos",
+            "image": "chakra-bracelet.jpg",
+            "members": 2,
+            "category": "Friends"
+        },
+		{
+            "id": "1003",
+            "name": "Team Project BE",
+            "image": "chakra-bracelet.jpg",
+            "members": 82,
+            "category": "Work"
+        },
+		{
+            "id": "1004",
+            "name": "840",
+            "image": "chakra-bracelet.jpg",
+            "members": 28,
+            "category": "Friends"
+        },
+		{
+            "id": "1005",
+            "name": "Voley",
+            "image": "chakra-bracelet.jpg",
+            "members": 37,
+            "category": "Friends"
+        },
+		{
+            "id": "1006",
+            "name": "Team Project FE",
+            "image": "chakra-bracelet.jpg",
+            "members": 73,
+            "category": "Work"
+		}
+	]
+}
