@@ -12,7 +12,6 @@ import {HttpClient} from "@angular/common/http";
     providers: [MessageService]
 })
 export class CrudComponent implements OnInit {
-    newJson: any = [];
     drawingDialog: boolean = false;
 
     deleteDrawingDialog: boolean = false;
@@ -23,9 +22,7 @@ export class CrudComponent implements OnInit {
 
     activity: Activity = {};
 
-    newActivity: Activity = {};
-
-    selectedDrawings: Activity[] = [];
+    selectedActivity: Activity[] = [];
 
     submitted: boolean = false;
 
@@ -74,9 +71,9 @@ export class CrudComponent implements OnInit {
 
     confirmDeleteSelected() {
         this.deleteDrawingsDialog = false;
-        this.activities = this.activities.filter(val => !this.selectedDrawings.includes(val));
+        this.activities = this.activities.filter(val => !this.selectedActivity.includes(val));
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Drawings deleted', life: 3000 });
-        this.selectedDrawings = [];
+        this.selectedActivity = [];
     }
 
     confirmDelete() {

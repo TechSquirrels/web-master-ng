@@ -29,6 +29,11 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-user',
                         items: [
                             {
+                                label: 'Register',
+                                icon: 'pi pi-fw pi-lock',
+                                routerLink: ['/auth/register']
+                            },
+                            {
                                 label: 'Login',
                                 icon: 'pi pi-fw pi-sign-in',
                                 routerLink: ['/auth/login']
@@ -46,9 +51,9 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
                     {
-                        label: 'Manage activities',
+                        label: 'Manage schedule',
                         icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/crud']
+                        routerLink: ['/pages/schedule']
                     }
                 ]
             }
