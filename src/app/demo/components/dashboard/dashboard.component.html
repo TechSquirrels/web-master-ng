@@ -1,6 +1,9 @@
-    <div class="grid">
-        <div class="col-6">
-            <div class="card mb-0">
+<div class="grid">
+
+    <div class="col-6">
+        <!--    Invites and unread messages     -->
+
+        <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
                         <span class="block text-500 font-medium mb-3">Messages</span>
@@ -29,35 +32,46 @@
                 <span class="text-500">new invites</span>
             </div>
         </div>
+        <!--    Confirm delete dialog     -->
+        <p-dialog [(visible)]="confirmDeleteDialog" [style]="{width: '450px'}" header="Details" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="header">
+                <h3>Are you sure you want to exit from group {{selectedGroup}} ?</h3>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onCancel()"></button>
+                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="onSave()"></button>
+            </ng-template>
+        </p-dialog>
+        <!--       List of groups         -->
         <div class="col-12">
-            <div class="card">
+            <div class="card">-
                 <h5>List of groups</h5>
-                <p-table [value]="products" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+                <p-table [(selection)]="selectedGroup" [value]="groups" [paginator]="true" [rows]="5" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <tr>
                             <th></th>
                             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                             <th pSortableColumn="members">Members <p-sortIcon field="members"></p-sortIcon></th>
-                            <th>View</th>
+                            <th></th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product>
+                    <ng-template pTemplate="body" let-group>
                         <tr>
                             <td style="width: 15%; min-width: 5rem;">
-                                <img src="assets/demo/images/product/{{product.image}}" class="shadow-4" alt="{{product.name}}" width="50">
+                                <img src="assets/demo/images/product/{{group.image}}" class="shadow-4" alt="{{group.name}}" width="50">
                             </td>
-                            <td style="width: 35%; min-width: 7rem;">{{product.name}}</td>
-                            <td style="width: 35%; min-width: 8rem;">{{product.members}}</td>
+                            <td style="width: 35%; min-width: 7rem;">{{group.name}}</td>
+                            <td style="width: 35%; min-width: 8rem;">{{group.members}}</td>
                             <td style="width: 15%;">
-                                <button pButton pRipple type="button" icon="pi pi-search" class="p-button p-component p-button-text p-button-icon-only"></button>
+                                <button pButton pRipple type="button" icon="pi pi-search" class="p-button p-component p-button-text p-button-icon-only" (click)="redirectToGroup()"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button p-component p-button-text p-button-icon-only" (click)="confirmDeleteDialogStateChange()"></button>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
         </div>
-
-
+        <!--         Notifications        -->
         <div class="col-12">
             <div class="card">
                 <div class="flex align-items-center justify-content-between mb-4">

@@ -1,6 +1,6 @@
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { LayoutService } from './service/app.layout.service';
+import {OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {LayoutService} from './service/app.layout.service';
 
 @Component({
     selector: 'app-menu',
@@ -10,14 +10,17 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService) {
+    }
 
     ngOnInit() {
         this.model = [
             {
                 label: 'Home',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    {
+                        label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/']
+                    }
                 ]
             },
             {
@@ -51,9 +54,9 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
                     {
-                        label: 'Manage schedule',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/schedule']
+                        label: 'Groups',
+                        icon: 'pi pi-list',
+                        routerLink: ['pages/groups']
                     }
                 ]
             }

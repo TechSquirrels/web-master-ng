@@ -1,6 +1,9 @@
 
 export interface Activity {
-    id?: string;
-    name?: string;
-    duration?: string;
+    "id": number,
+    "name": string,
+    "startField": string,
+    "endField": string,
+    "date": string,
+    "state": number
 }

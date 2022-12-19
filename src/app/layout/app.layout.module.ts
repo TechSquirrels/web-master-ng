@@ -26,7 +26,7 @@ import { AppLayoutComponent } from "./app.layout.component";
         AppFooterComponent,
         AppMenuComponent,
         AppSidebarComponent,
-        AppLayoutComponent,
+        AppLayoutComponent
 
     ],
     imports: [
@@ -41,8 +41,8 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
-    ],
+        AppConfigModule,
+        ],
     exports: [AppLayoutComponent]
 })
 export class AppLayoutModule { }

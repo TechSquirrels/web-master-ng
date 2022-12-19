@@ -1,26 +1,25 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Activity } from 'src/app/demo/api/product';
+import { Group } from 'src/app/demo/api/group';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import {ActivityService} from "../../../service/activity.service";
-import {saveAs} from "file-saver";
 import {ApiService} from "../../../service/api.service";
-import {HttpClient} from "@angular/common/http";
+import {EventInput} from "@fullcalendar/angular";
+import {Activity} from "../../../api/activity";
 
 @Component({
     templateUrl: './crud.component.html',
     providers: [MessageService]
 })
 export class CrudComponent implements OnInit {
+    activities: EventInput[] = [];
+
     drawingDialog: boolean = false;
 
     deleteDrawingDialog: boolean = false;
 
     deleteDrawingsDialog: boolean = false;
 
-    activities: Activity[] = [];
-
-    activity: Activity = {};
+    activity: Activity = {} as Activity;
 
     selectedActivity: Activity[] = [];
 
@@ -32,13 +31,11 @@ export class CrudComponent implements OnInit {
 
     rowsPerPageOptions = [5, 10, 20];
     @Input() activity_test!: Activity;
-    constructor(private activityService: ActivityService, private messageService: MessageService, private api: ApiService) {
-
+    constructor(private messageService: MessageService, private api: ApiService) {
+        this.api.getActivities().subscribe((activities) => console.log(activities))
     }
 
     ngOnInit() {
-        this.activityService.getActivities().then(data => this.activities = data);
-
         this.cols = [
             { field: 'modulo', header: 'Product' },
             { field: 'size', header: 'Price' },
@@ -50,7 +47,7 @@ export class CrudComponent implements OnInit {
 
 
     openNew() {
-        this.activity = {};
+        this.activity = {} as Activity;
         this.submitted = false;
         this.drawingDialog = true;
     }
@@ -69,18 +66,13 @@ export class CrudComponent implements OnInit {
         this.activity = { ...drawing };
     }
 
-    confirmDeleteSelected() {
-        this.deleteDrawingsDialog = false;
-        this.activities = this.activities.filter(val => !this.selectedActivity.includes(val));
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Drawings deleted', life: 3000 });
-        this.selectedActivity = [];
-    }
+
 
     confirmDelete() {
         this.deleteDrawingDialog = false;
-        this.activities = this.activities.filter(val => val.id !== this.activity.id);
+        // this.activities = this.activities.filter(val => val.id !== this.group.id);
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Drawing deleted', life: 3000 });
-        this.activity = {};
+        this.activity = {} as Activity;
     }
 
     hideDialog() {
@@ -97,7 +89,7 @@ export class CrudComponent implements OnInit {
                 this.activities[this.findIndexById(this.activity.id)] = this.activity;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
             } else {
-                this.activity.id = this.createId();
+                this.activity.id = 1;
                 // @ts-ignore
                 this.activities.push(this.activity);
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
@@ -105,13 +97,12 @@ export class CrudComponent implements OnInit {
 
             this.activities = [...this.activities];
             this.drawingDialog = false;
-            //this.addActivity(this.activity);
-            this.api.createActivity(this.activity).subscribe(
-                data => {
-                    console.log(data);
-                    this.submitted = true;
-                },
-                error => console.log(error));
+            // this.api.createActivity(this.activity).subscribe(
+            //     data => {
+            //         console.log(data);
+            //         this.submitted = true;
+            //     },
+            //     error => console.log(error));
         }
 
     }
@@ -119,6 +110,7 @@ export class CrudComponent implements OnInit {
     findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.activities.length; i++) {
+            // @ts-ignore
             if (this.activities[i].id === id) {
                 index = i;
                 break;

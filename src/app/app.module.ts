@@ -15,16 +15,31 @@ import { GroupService } from "./demo/service/group.service";
 import { HttpClientModule } from "@angular/common/http";
 import { AppComponent} from "./app.component";
 import {NgModule} from "@angular/core";
+import {ScheduleModule} from "./demo/components/schedule/schedule.module";
+import { ProfileDialogComponent } from './demo/components/profile-dialog/profile-dialog.component';
+import {DialogModule} from "primeng/dialog";
+import { DialogFooterComponent } from './demo/components/dialog-footer/dialog-footer.component';
+import { DialogHeaderComponent } from './demo/components/dialog-header/dialog-header.component';
+import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
+import {FormsModule} from "@angular/forms";
+import {TableModule} from "primeng/table";
 
 @NgModule({
     declarations: [
-        NotfoundComponent, AppComponent
+        NotfoundComponent, AppComponent, ProfileDialogComponent, DialogFooterComponent, DialogHeaderComponent
     ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
         FlexLayoutModule,
         HttpClientModule,
+        ScheduleModule,
+        DialogModule,
+        ButtonModule,
+        InputTextModule,
+        FormsModule,
+        TableModule,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -32,7 +47,7 @@ import {NgModule} from "@angular/core";
         PhotoService, ProductService, ActivityService, GroupService,
     ],
     exports: [
-
+        ProfileDialogComponent
     ],
     bootstrap: [AppComponent]
 })
