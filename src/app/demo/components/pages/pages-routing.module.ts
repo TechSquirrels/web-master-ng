@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
         { path: 'schedule', loadChildren: () => import('./crud/crud.module').then(m => m.CrudModule) },
         { path: 'empty', loadChildren: () => import('./empty/emptydemo.module').then(m => m.EmptyDemoModule) },
         { path: 'timeline', loadChildren: () => import('./timeline/timelinedemo.module').then(m => m.TimelineDemoModule) },
+        { path: 'group', loadChildren: () => import('./group-schedule/group-schedule.module').then(m=>m.GroupScheduleModule)},
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]

@@ -97,7 +97,7 @@ export class CrudComponent implements OnInit {
                 this.activities[this.findIndexById(this.activity.id)] = this.activity;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
             } else {
-                this.activity.id = this.createId();
+                this.activity.id = 1;
                 // @ts-ignore
                 this.activities.push(this.activity);
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
@@ -105,13 +105,12 @@ export class CrudComponent implements OnInit {
 
             this.activities = [...this.activities];
             this.drawingDialog = false;
-            //this.addActivity(this.activity);
-            this.api.createActivity(this.activity).subscribe(
-                data => {
-                    console.log(data);
-                    this.submitted = true;
-                },
-                error => console.log(error));
+            // this.api.createActivity(this.activity).subscribe(
+            //     data => {
+            //         console.log(data);
+            //         this.submitted = true;
+            //     },
+            //     error => console.log(error));
         }
 
     }
@@ -119,6 +118,7 @@ export class CrudComponent implements OnInit {
     findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.activities.length; i++) {
+            // @ts-ignore
             if (this.activities[i].id === id) {
                 index = i;
                 break;

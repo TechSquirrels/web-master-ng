@@ -54,6 +54,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Manage schedule',
                         icon: 'pi pi-fw pi-pencil',
                         routerLink: ['/pages/schedule']
+                    },
+                    {
+                        label: 'Group',
+                        icon: 'pi pi-fw pi-pencil',
+                        routerLink: ['/pages/group']
                     }
                 ]
             }

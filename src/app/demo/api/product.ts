@@ -3,7 +3,7 @@ interface InventoryStatus {
     value: string;
 }
 export interface Activity {
-    id?: string;
+    id?: number;
     code?: string;
     name?: string;
     duration?: string;

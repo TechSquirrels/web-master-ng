@@ -15,6 +15,7 @@ import { GroupService } from "./demo/service/group.service";
 import { HttpClientModule } from "@angular/common/http";
 import { AppComponent} from "./app.component";
 import {NgModule} from "@angular/core";
+import {ScheduleModule} from "./demo/components/schedule/schedule.module";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import {NgModule} from "@angular/core";
         AppLayoutModule,
         FlexLayoutModule,
         HttpClientModule,
+        ScheduleModule,
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

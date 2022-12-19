@@ -1,12 +1,22 @@
 import { Component } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/angular';
+import {
+    CalendarOptions,
+    DateSelectArg,
+    EventClickArg,
+    EventApi,
+    EventSourceInput,
+    EventInput
+} from '@fullcalendar/angular';
 import { INITIAL_EVENTS, createEventId } from '../../api/event-utils';
+import {ApiService} from "../../service/api.service";
+import {Activity} from "../../api/activity";
 
 @Component({
     selector: 'app-schedule',
     templateUrl: './schedule.component.html'
 })
 export class ScheduleComponent {
+    activities: EventInput[] = []
     calendarOptions: CalendarOptions = {
         headerToolbar: {
             left: 'prev,next today',
@@ -14,7 +24,6 @@ export class ScheduleComponent {
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
         initialView: 'dayGridMonth',
-        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
         weekends: true,
         editable: true,
         selectable: true,
@@ -22,19 +31,27 @@ export class ScheduleComponent {
         dayMaxEvents: true,
         select: this.handleDateSelect.bind(this),
         eventClick: this.handelActivityClick.bind(this),
-        eventsSet: this.handleActivities.bind(this)
-        /* you can update a remote database when these fire:
-        eventAdd:
-        eventChange:
-        eventRemove:
-        */
+        // eventAdd: this.
+        // eventChange:
+        // eventRemove:
     };
     //calendarVisible = true;
-    currentActivities: EventApi[] = [];
+    constructor(private apiService: ApiService) {
+        this.apiService.getActivities().subscribe(activities => {
+            let activity:EventInput = Object();
+            for (let i = 0; i < activities.length; i++){
+                activity.title = activities[i].name;
+                activity.start = '2022-12-12'
 
-    // handleCalendarToggle() {
-    //     this.calendarVisible = !this.calendarVisible;
-    // }
+                activity.allDay = true;
+                console.log(activity)
+                this.activities[i] = activity
+                console.log(this.activities)
+            }
+            console.log(this.activities)
+        })
+
+    }
 
     handleWeekendsToggle() {
         const { calendarOptions } = this;
@@ -42,31 +59,30 @@ export class ScheduleComponent {
     }
 
     handleDateSelect(selectInfo: DateSelectArg) {
-        const title = prompt('Nume activitate: ');
-        const priority = prompt('Priority(0 - optional, 1 - mandatory): ')
+        const activityName = prompt('Nume activitate: ');
         const calendarApi = selectInfo.view.calendar;
-
         calendarApi.unselect(); // clear date selection
-
-        if (title) {
-            calendarApi.addEvent({
-                id: createEventId(),
-                title,
-                priority,
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-                allDay: selectInfo.allDay
-            });
+        let apiActivity: Activity = Object();
+        if (activityName) {
+            apiActivity.id = 111;
+            apiActivity.name = activityName;
+            apiActivity.startField = selectInfo.startStr;
+            apiActivity.endField = selectInfo.endStr;
+            apiActivity.dayOfWeek=11;
+            apiActivity.state=0;
         }
+        else{
+            console.log("TODO ERROR")
+        }
+        this.apiService.createActivity(apiActivity).subscribe();
+        this.apiService.getActivities().subscribe()
     }
 
     handelActivityClick(clickInfo: EventClickArg) {
         if (confirm(`Are you sure you want to delete the activity '${clickInfo.event.title}'`)) {
             clickInfo.event.remove();
         }
+        this.apiService.deleteActivity(clickInfo.event.id)
     }
 
-    handleActivities(activities: EventApi[]) {
-        this.currentActivities = activities;
-    }
 }
