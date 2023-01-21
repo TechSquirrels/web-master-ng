@@ -23,4 +23,7 @@ export class GroupService {
             name: group.name
         });
     }
+    deleteGroup(group: Group): Observable<any> {
+        return this.http.delete(`${this.baseURL}delete/${group.id}`)
+    }
 }

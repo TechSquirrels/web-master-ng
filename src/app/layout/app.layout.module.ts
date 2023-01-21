@@ -17,6 +17,10 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import {ProfileDialogComponent} from "../demo/components/profile-dialog/profile-dialog.component";
+import {DialogModule} from "primeng/dialog";
+import {ButtonModule} from "primeng/button";
+import {PasswordModule} from "primeng/password";
 
 
 @NgModule({
@@ -26,8 +30,8 @@ import { AppLayoutComponent } from "./app.layout.component";
         AppFooterComponent,
         AppMenuComponent,
         AppSidebarComponent,
-        AppLayoutComponent
-
+        AppLayoutComponent,
+        ProfileDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +46,10 @@ import { AppLayoutComponent } from "./app.layout.component";
         RippleModule,
         RouterModule,
         AppConfigModule,
-        ],
+        DialogModule,
+        ButtonModule,
+        PasswordModule,
+    ],
     exports: [AppLayoutComponent]
 })
 export class AppLayoutModule { }

@@ -3,11 +3,11 @@ import {UserProfile} from "../../api/user-profile";
 import {ProfileService} from "../../service/profile.service";
 
 @Component({
-  selector: 'app-profile-dialog',
-  templateUrl: './profile-dialog.component.html',
-  styleUrls: ['./profile-dialog.component.scss']
+  selector: 'app-activity-dialog',
+  templateUrl: './add-activity-dialog.component.html',
+  styleUrls: ['./add-activity.component.scss']
 })
-export class ProfileDialogComponent implements OnInit {
+export class AddActivityDialogComponent implements OnInit {
 
     @Input() isVisible: boolean = false;
     @Input() user: UserProfile = {} as UserProfile;

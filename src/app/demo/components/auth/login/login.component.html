@@ -2,28 +2,26 @@
     <div class="flex flex-column align-items-center justify-content-center">
 
         <div style="border-radius:56px; padding:1.2rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
-            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:20px">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
                 <img src="assets/layout/images/roundeddsvg.svg" alt="SyncronizeMe" class="mb-3" >
-                <div class="text-center mb-5">
-                    <div class="text-900 text-3xl font-medium mb-3">Welcome!</div>
-                    <span class="text-600 font-medium">Sign in to continue</span>
+                <div class="text-center mb-5" style="margin-top:12px">
+                    <span class="text-600 font-medium" >Sign in to continue</span>
                 </div>
 
                 <div>
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                    <input id="email1" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
+                    <label for="username1" class="block text-900 text-xl font-medium mb-2" style="margin-top:55px">Username</label>
+                    <input id="username1" type="text" [(ngModel)]="user.username" placeholder="{{usernamePlaceholder}}" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
                     <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
-                    <p-password id="password1" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+                    <input id="password1" type="text" [(ngModel)]="user.password" placeholder="{{passwordPlaceholder}}" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
                     <div class="flex align-items-center justify-content-between mb-5 gap-5">
                         <div class="flex align-items-center">
                             <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
                             <label for="rememberme1">Remember me</label>
                         </div>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                     </div>
-                    <button pButton pRipple label="Sign In" class="w-full p-3 text-xl" [routerLink]="['/']"></button>
+                    <button pButton pRipple label="Sign In" class="w-full p-3 text-xl" style="margin-top: 85px" (click)="onSignIn()"></button>
                 </div>
             </div>
         </div>

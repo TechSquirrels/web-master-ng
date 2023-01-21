@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogFooterComponent } from './dialog-footer.component';
+import { ParticipantsComponent } from './participants.component';
 
-describe('DialogFooterComponent', () => {
-  let component: DialogFooterComponent;
-  let fixture: ComponentFixture<DialogFooterComponent>;
+describe('ParticipantsComponent', () => {
+  let component: ParticipantsComponent;
+  let fixture: ComponentFixture<ParticipantsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogFooterComponent ]
+      declarations: [ ParticipantsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DialogFooterComponent);
+    fixture = TestBed.createComponent(ParticipantsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

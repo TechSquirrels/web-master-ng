@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import {UserProfile} from "../../../api/user-profile";
+import {ProfileService} from "../../../service/profile.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-login',
@@ -14,46 +17,20 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     `]
 })
 export class RegisterComponent {
-
-    password: string = "";
-    username: string = "";
-    email: string = "";
+    user: UserProfile = {} as UserProfile;
     passwordPlaceholder: string = "p4S$w0rd_Ex4mpl3!&$#";
-    usernamePlaceholder: string = "MihaiEminescu";
-    emailPlaceholder: string = "mihai.eminesc@gmail.com";
-    isUserNameValid: boolean = true;
-    isEmailValid: boolean = true;
-    isPasswordValid: boolean = true;
+    usernamePlaceholder: string = "cadrian";
+    emailPlaceholder: string = "c_adrian@gmail.com";
+    constructor(public layoutService: LayoutService,
+                private profileService: ProfileService,
+                private router: Router) { }
 
-    constructor(public layoutService: LayoutService) { }
-
-    registerUser() {
-        this.validateAllFields();
+    ngOnInit() {
+        this.user.password = "";
+        this.user.username = "";
     }
 
-    usernameValid(){
-        if(this.username === "") {
-            this.usernamePlaceholder = "Username should not be empty!"
-            return false;
-        }
-        return true;
-    }
 
-    passwordValid(){
-        if(this.password === "") {
-            this.passwordPlaceholder = "Password empty or not strong enough"
-            return false;
-        }
-
-        return true;
-    }
-    emailValid(){
-        if(this.email === "") {
-            this.emailPlaceholder = "Invalid email address!"
-            return false;
-        }
-        return true;
-    }
     validateAllFields(){
         let areFieldsValid: boolean = true;
         if(!this.emailValid()) {
@@ -66,6 +43,44 @@ export class RegisterComponent {
             areFieldsValid = false;
         }
         return areFieldsValid;
+    }
+    usernameValid(){
+        if(this.user.username === "" || !this.user.username) {
+            this.usernamePlaceholder = "Username should not be empty!"
+            return false;
+        }
+        return true;
+    }
+
+    passwordValid(){
+        if(this.user.password === "" || !this.user.password) {
+            this.passwordPlaceholder = "Password empty or not strong enough"
+            return false;
+        }
+
+        return true;
+    }
+    emailValid(){
+        if(this.user.email === "" || !this.user.email) {
+            this.emailPlaceholder = "Invalid email address!"
+            return false;
+        }
+        return true;
+    }
+    onSignUp() {
+        if(this.validateAllFields()) {
+            this.profileService.registerUser(this.user).subscribe(api => {
+                let password = this.user.password;
+                this.user = api.user;
+                this.user.token = api.token;
+                this.user.password = password;
+                this.profileService.setUser(this.user)
+                this.redirectToHome();
+            })
+        }
+    }
+    redirectToHome() {
+        this.router.navigate(["/"]);
     }
 
 }

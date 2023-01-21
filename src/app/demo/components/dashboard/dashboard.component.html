@@ -1,34 +1,35 @@
-<div class="grid">
+<div class="grid" *ngIf="this.user">
 
     <div class="col-6">
-        <!--    Invites and unread messages     -->
+        <!--    Unread messages     -->
 
-        <div class="card mb-0">
+        <div *ngIf="this.user.token" class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
                         <span class="block text-500 font-medium mb-3">Messages</span>
-                        <div class="text-900 font-medium text-xl">7 Unread</div>
+                        <div class="text-900 font-medium text-xl">0 Unread</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-comment text-cyan-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">3 </span>
+                <span class="text-green-500 font-medium">0 </span>
                 <span class="text-500">new messages</span>
-            </div>
         </div>
-        <div class="col-6">
+        <!--    Invites    -->
+        </div>
+        <div *ngIf="this.user.token" class="col-6">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
                         <span class="block text-500 font-medium mb-3">Invites</span>
-                        <div class="text-900 font-medium text-xl">5 Unread</div>
+                        <div class="text-900 font-medium text-xl">0 Unread</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                         <i class="pi pi-calendar-times text-purple-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">2 </span>
+                <span class="text-green-500 font-medium">0 </span>
                 <span class="text-500">new invites</span>
             </div>
         </div>
@@ -43,7 +44,7 @@
             </ng-template>
         </p-dialog>
         <!--       List of groups         -->
-        <div class="col-12">
+        <div *ngIf="this.user.token" class="col-12">
             <div class="card">-
                 <h5>List of groups</h5>
                 <p-table [(selection)]="selectedGroup" [value]="groups" [paginator]="true" [rows]="5" responsiveLayout="scroll">
@@ -72,31 +73,44 @@
             </div>
         </div>
         <!--         Notifications        -->
-        <div class="col-12">
+        <div *ngIf="this.user.token" class="col-12">
             <div class="card">
                 <div class="flex align-items-center justify-content-between mb-4">
                     <h5>Notifications</h5>
                 </div>
-                <ul class="p-0 m-0 list-none">
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-comment text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Ovidiu Munteanu <span class="text-700"> sent you a message</span></span>
-                    </li>
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-comment text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Adrian Popescu <span class="text-700"> sent you a message</span></span>
-                    </li>
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-calendar-times text-xl text-pink-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Nadia Pindaru<span class="text-700"> has invited you to the group </span> <span class="text-900 line-height-3">Group 841</span></span>
-                    </li>
-                </ul>
+                <p>No new notifications</p>
+<!--                <ul class="p-0 m-0 list-none">-->
+<!--                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">-->
+<!--                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">-->
+<!--                            <i class="pi pi-comment text-xl text-blue-500"></i>-->
+<!--                        </div>-->
+<!--                        <span class="text-900 line-height-3">Ovidiu Munteanu <span class="text-700"> sent you a message</span></span>-->
+<!--                    </li>-->
+<!--                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">-->
+<!--                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">-->
+<!--                            <i class="pi pi-comment text-xl text-blue-500"></i>-->
+<!--                        </div>-->
+<!--                        <span class="text-900 line-height-3">Adrian Popescu <span class="text-700"> sent you a message</span></span>-->
+<!--                    </li>-->
+<!--                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">-->
+<!--                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">-->
+<!--                            <i class="pi pi-calendar-times text-xl text-pink-500"></i>-->
+<!--                        </div>-->
+<!--                        <span class="text-900 line-height-3">Nadia Pindaru<span class="text-700"> has invited you to the group </span> <span class="text-900 line-height-3">Group 841</span></span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+            </div>
+        </div>
+
+        <div *ngIf="!this.user.token" class="col-12">
+            <div class="card shadow" style=" display: flex; flex-direction: column; align-items: center; background-color: black; padding: 20px; margin-top: 35px">
+                <h1  style="color: white; font-size: 36px; margin-bottom: 10px; margin-top:50px; padding-left: 15px!important;">Welcome to <h1 style="color:#02aec0; margin-left: 50px">SynchronizeMe</h1></h1>
+                <h3  style=" margin-top: 50px; color: #fed02c; font-size: 20px; margin-bottom: 20px;">Create your personal schedule and sync it with your friends, never double book again!</h3>
+                <img src="assets/demo/images/squirrels/dark-brown.png" style="margin-left:50px;width: 350px; padding-top: 50px">
+                <div class="d-flex">
+                    <button (click)="redirectToRegister()" pButton style="margin-top: 50px; margin-right:50px; padding-left: 34px;width: 120px;"><p>Sign Up</p></button>
+                    <button (click)="redirectToLogin()" pButton style="padding-left: 34px;width: 120px"><p>Sign In</p></button>
+                </div>
             </div>
         </div>
     </div>

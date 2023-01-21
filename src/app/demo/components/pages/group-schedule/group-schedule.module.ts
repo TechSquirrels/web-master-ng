@@ -17,6 +17,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { ScheduleModule} from "../../schedule/schedule.module";
+import {ParticipantsComponent} from "../../participants/participants.component";
 
 @NgModule({
     imports: [
@@ -36,8 +37,8 @@ import { ScheduleModule} from "../../schedule/schedule.module";
         RadioButtonModule,
         InputNumberModule,
         DialogModule,
-        ScheduleModule
+        ScheduleModule,
     ],
-    declarations: [GroupScheduleComponent]
+    declarations: [GroupScheduleComponent, ParticipantsComponent]
 })
 export class GroupScheduleModule { }

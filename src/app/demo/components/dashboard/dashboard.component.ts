@@ -5,38 +5,36 @@ import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import {Router} from "@angular/router";
-import {UserService} from "../../service/user.service";
 import {ScheduleService} from "../../service/schedule.service";
 import {GroupService} from "../../service/group.service";
+import {ProfileService} from "../../service/profile.service";
+import {UserProfile} from "../../api/user-profile";
 
 @Component({
     templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
     items!: MenuItem[];
 
     groups!: Group[];
-
+    user: UserProfile = {} as UserProfile;
     subscription!: Subscription;
     confirmDeleteDialog: boolean = false;
     selectedGroup!: Group;
+    isLoggedIn: boolean = false;
 
     constructor(private productService: ProductService, public layoutService: LayoutService,
-                private userService: UserService,
                 private groupService: GroupService,
+                private profileService: ProfileService,
                 private scheduleService: ScheduleService,
                 private router: Router) {
     }
 
     ngOnInit() {
         this.productService.getGroupList().then(data => this.groups = data);
-        this.groupService.addGroup({userIds: [1, 2], numberOfParticipants: 2, id: 1}).subscribe(res => console.log(res))
-        this.userService.getUser(12).subscribe(user => {
-            let scheduleId = user.scheduleId;
-            this.scheduleService.getSchedule(scheduleId).subscribe(schedule => {
-            })
-        })
+        this.profileService.getUser().subscribe(user => this.user = user);
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
             { label: 'Remove', icon: 'pi pi-fw pi-minus' }
@@ -60,5 +58,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     redirectToGroup() {
         this.router.navigate(["pages/group"]);
+    }
+
+    redirectToRegister() {
+        this.router.navigate(["auth/register"]);
+    }
+    redirectToLogin() {
+        this.router.navigate(["auth/login"]);
     }
 }

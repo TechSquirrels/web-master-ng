@@ -7,35 +7,60 @@ import {
 } from '@fullcalendar/angular';
 import {ApiService} from "../../service/api.service";
 import {Activity} from "../../api/activity";
+import {map} from "rxjs";
 
 @Component({
     selector: 'app-schedule',
-    templateUrl: './schedule.component.html'
+    templateUrl: './schedule.component.html',
+    styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent {
-    @Input() activities: any[] = []
-
+    @Input() activities: any[] = [];
+    @Input() isEditable: boolean = true;
+    events: any;
+    selectedInfo!: DateSelectArg;
+    //calendarVisible = true;
+    isVisible: boolean = false;
+    activityName: string = "";
     calendarOptions: CalendarOptions = {
+        events: {} as EventInput,
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
-        initialView: 'dayGridMonth',
+        height: 800,
+        initialView: 'timeGridDay',
+        nowIndicatorClassNames: 'red-now',
+        slotDuration: "00:15",
+        slotMinTime: "06:00",
         weekends: true,
-        editable: true,
+        editable: this.isEditable,
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
         select: this.handleDateSelect.bind(this),
-        eventClick: this.handelActivityClick.bind(this),
+        eventClick: this.handelActivityClick.bind(this)
         // eventAdd: this.
         // eventChange:
         // eventRemove:
     };
+    placeholder: string = "Swimming class";
 
-    //calendarVisible = true;
-    constructor(private apiService: ApiService) {
+    constructor(private activityService: ApiService) {
+    }
+
+    ngOnInit() {
+        this.events = [];
+        let act = this.activityService.getActivities().pipe(map(activity => {
+            let event: EventInput = <EventInput>{
+                start: activity.startField,
+                end: activity.endField,
+                title: activity.name
+            }
+            this.events.push(event);
+        }))
+        console.log(act)
     }
 
     handleWeekendsToggle() {
@@ -44,35 +69,57 @@ export class ScheduleComponent {
     }
 
     handleDateSelect(selectInfo: DateSelectArg) {
-        const activityName = prompt('Nume activitate: ');
-        const calendarApi = selectInfo.view.calendar;
-        calendarApi.unselect(); // clear date selection
-        let apiActivity: Activity = Object();
-        if (activityName) {
-            apiActivity.name = activityName;
-            apiActivity.startField = "11:30:00";
-            apiActivity.endField = "12:00:00";
-            apiActivity.date = selectInfo.startStr + 'T14:35:41Z'
-            apiActivity.state = 0;
-        } else {
-            console.log("TODO ERROR")
-        }
-        this.apiService.createActivity(apiActivity).subscribe();
-        const nowDate = new Date();
-        const yearMonth = nowDate.getUTCFullYear() + '-' + (nowDate.getUTCMonth() + 1);
-        this.calendarOptions!.events = [{
-            title: 'Test',
-            start: yearMonth + '-22T07:00:00.000Z',
-            end: yearMonth + '-22T08:00:00.000Z'
-        }];
-        this.apiService.getActivities().subscribe()
+        this.selectedInfo = selectInfo;
+        this.openDialog()
     }
 
     handelActivityClick(clickInfo: EventClickArg) {
         if (confirm(`Are you sure you want to delete the activity '${clickInfo.event.title}'`)) {
             clickInfo.event.remove();
+            if (clickInfo.event.id && clickInfo.event.id !== "")
+                this.activityService.deleteActivity(clickInfo.event.id).subscribe()
         }
-        this.apiService.deleteActivity(clickInfo.event.id)
+
     }
 
+    onSave() {
+        if (!this.activityName || this.activityName === "")
+            this.placeholder = "Activity name should not be empty!";
+        else {
+            let apiActivity: Activity = {} as Activity;
+            apiActivity.name = this.activityName;
+            apiActivity.startField = this.extractHour(this.selectedInfo.startStr);
+            apiActivity.endField = this.extractHour(this.selectedInfo.endStr);
+            apiActivity.date = this.selectedInfo.startStr;
+            this.activityService.createActivity(apiActivity).subscribe();
+            this.calendarOptions.events = [{
+                title: apiActivity.name,
+                start: this.selectedInfo.start.toISOString(),
+                end: this.selectedInfo.end.toISOString()
+            }];
+            this.selectedInfo.view.calendar.unselect()
+            this.isVisible = false;
+            this.activityName = "";
+        }
+    }
+
+    onCancel() {
+        this.isVisible = false;
+    }
+
+    openDialog() {
+        this.isVisible = !this.isVisible;
+    }
+
+    extractHour(timeString: string): string {
+        // Extract the hour from the string
+        let hour = timeString.slice(11, 19);
+        return hour;
+    }
+
+    extractDate(timeString: string): string {
+        //Extract the hour from the string
+        let hour = timeString.slice(0, 9)
+        return hour;
+    }
 }

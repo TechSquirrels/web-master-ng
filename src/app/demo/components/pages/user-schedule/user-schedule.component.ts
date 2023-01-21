@@ -7,10 +7,10 @@ import {EventInput} from "@fullcalendar/angular";
 import {Activity} from "../../../api/activity";
 
 @Component({
-    templateUrl: './crud.component.html',
+    templateUrl: './user-schedule.component.html',
     providers: [MessageService]
 })
-export class CrudComponent implements OnInit {
+export class UserScheduleComponent implements OnInit {
     activities: EventInput[] = [];
 
     drawingDialog: boolean = false;

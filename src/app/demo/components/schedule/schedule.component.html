@@ -1,14 +1,25 @@
+<p-dialog *ngIf="isEditable&&isVisible"
+    class="dialog"
+    [visible]="isVisible"
+    [closable]="false">
+    <ng-template pTemplate="header">
+        <h3>Add a new activity</h3>
+    </ng-template>
+    <div class="d-flex flex-column">
+        <h5>Activity name: </h5>
+        <input [(ngModel)]="activityName" pInputText placeholder="{{placeholder}}"/>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onCancel()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="onSave()"></button>
+    </ng-template>
+</p-dialog>
 <div class='d-flex flex-row'>
-    <label>
-        <input
-            type='checkbox'
-            [checked]='calendarOptions.weekends'
-            (change)='handleWeekendsToggle()'
-        />
-        Toggle Weekends
-    </label>
-
+    <input
+        type='checkbox'
+        [checked]='calendarOptions.weekends'
+        (change)='handleWeekendsToggle()'/>
+    <label>Toggle Weekends</label>
 </div>
-
 <full-calendar [options]='calendarOptions'></full-calendar>
 

@@ -14,20 +14,18 @@ export class ApiService {
         return this.http.get(`${this.baseURL}${id}`);
     }
     createActivity(activity: Activity): Observable<Object>{
-        const headers = { 'Content-type': 'application/json'}
         return this.http.post(`${this.baseURL}create/`, {
-            "name": activity.name,
-            "startField": activity.startField,
-            "endField": activity.endField,
-            "date": activity.date,
-            "state": 1
-        }, {headers});
+            name: activity.name,
+            startField: activity.startField,
+            endField: activity.endField,
+            date: activity.date,
+            state: 0});
     }
     updateActivity(id: string, value: any): Observable<Object> {
         return this.http.put(`${this.baseURL}update/`, value.value);
     }
     deleteActivity(id: string): Observable<any> {
-        return this.http.delete(`${this.baseURL}remove/${id}`)
+        return this.http.delete(`${this.baseURL}delete/${id}`)
     }
     getActivities(): Observable<any> {
         return this.http.get(`${this.baseURL}activities/`, );

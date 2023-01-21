@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CrudRoutingModule } from './crud-routing.module';
-import { CrudComponent } from './crud.component';
+import { UserScheduleRoutingModule } from './user-schedule-routing.module';
+import { UserScheduleComponent } from './user-schedule.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -17,11 +17,13 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { ScheduleModule} from "../../schedule/schedule.module";
+import {AddActivityDialogComponent} from "../../add-activity-dialog/add-activity-dialog.component";
+import {PasswordModule} from "primeng/password";
 
 @NgModule({
     imports: [
         CommonModule,
-        CrudRoutingModule,
+        UserScheduleRoutingModule,
         TableModule,
         FileUploadModule,
         FormsModule,
@@ -36,8 +38,9 @@ import { ScheduleModule} from "../../schedule/schedule.module";
         RadioButtonModule,
         InputNumberModule,
         DialogModule,
-        ScheduleModule
+        ScheduleModule,
+        PasswordModule
     ],
-    declarations: [CrudComponent]
+    declarations: [UserScheduleComponent, AddActivityDialogComponent]
 })
-export class CrudModule { }
+export class UserScheduleModule { }
