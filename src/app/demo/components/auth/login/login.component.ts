@@ -42,8 +42,8 @@ export class LoginComponent {
                 this.redirectToHome();
             },
                 (error) => {
-                this.passwordPlaceholder = "Invalid email or password!";
-                this.usernamePlaceholder = "Invalid email or password";
+                this.passwordPlaceholder = "Invalid username or password!";
+                this.usernamePlaceholder = "Invalid username or password";
                 this.user.password = "";
                 this.user.email = "";
             })
@@ -52,7 +52,7 @@ export class LoginComponent {
 
     validateAllFields(){
         let areFieldsValid: boolean = true;
-        if(!this.emailValid()) {
+        if(!this.usernameValid()) {
             areFieldsValid = false;
         }
         if(!this.passwordValid()) {
@@ -69,9 +69,9 @@ export class LoginComponent {
 
         return true;
     }
-    emailValid(){
+    usernameValid(){
         if(this.user.username === "") {
-            this.usernamePlaceholder = "Invalid email address!"
+            this.usernamePlaceholder = "Invalid username!"
             return false;
         }
         return true;

@@ -32,7 +32,7 @@ export class AppTopBarComponent {
     ngOnInit() {
         this.profileService.getUser().subscribe(user => {
             this.user = user;
-            this.user.token = "s";
+            this.user.token = "";
         })
     }
 

@@ -11,7 +11,6 @@ import {UserProfile} from "../api/user-profile";
 export class ProfileService {
     baseURL = "http://127.0.0.1:8000/user/";
     public $user = new BehaviorSubject<UserProfile>({} as UserProfile);
-
     constructor(private http: HttpClient) {
     }
 
@@ -23,7 +22,8 @@ export class ProfileService {
         return this.http.post(`${this.baseURL}api/register/`, {
             username: user.username,
             email: user.email,
-            password: user.password
+            password: user.password,
+            scheduleId: 1
         })
     }
 
@@ -41,4 +41,14 @@ export class ProfileService {
     getUser() {
         return this.$user;
     }
+
+    getUserById(id: number) {
+        return this.http.get(`${this.baseURL}read/${id}`)
+    }
+
+    getAllUsers() {
+        return this.http.get(`${this.baseURL}users`)
+    }
+
+
 }

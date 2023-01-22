@@ -15,10 +15,11 @@ import {InputTextModule} from "primeng/inputtext";
 import {FormsModule} from "@angular/forms";
 import {TableModule} from "primeng/table";
 import {AddActivityDialogComponent} from "./demo/components/add-activity-dialog/add-activity-dialog.component";
+import {GroupsListComponent} from "./demo/components/groups-list/groups-list.component";
 
 @NgModule({
     declarations: [
-        NotfoundComponent, AppComponent
+        NotfoundComponent, AppComponent,
     ],
     imports: [
         AppRoutingModule,

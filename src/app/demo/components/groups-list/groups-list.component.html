@@ -1,3 +1,33 @@
+<!--    Add group dialog         -->
+<p-dialog *ngIf="isAddDialogVisible"
+          class="dialog"
+          [visible]="isAddDialogVisible"
+          [closable]="false"
+          (onShow)="selectedGroup.name = ''">
+    <ng-template pTemplate="header">
+        <h3>Add a group</h3>
+    </ng-template>
+    <div style="display: flex;">
+        <div>
+            <h5>Name: </h5>
+            <input type="text" pInputText [(ngModel)]="selectedGroup.name">
+            <h5>Add friends to the group</h5>
+            <p-pickList
+                [source]="friends"
+                [sourceHeader]="'Friends list'"
+                [targetHeader]="'Added friends'">
+                <ng-template let-item pTemplate="item">
+                    {{item.name}}
+                </ng-template>
+            </p-pickList>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onAddCancel()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-save" class="p-button-text" (click)="onAddConfirm()"></button>
+    </ng-template>
+</p-dialog>
+
 <!--    Confirm delete dialog     -->
 <p-dialog *ngIf="isDeleteDialogVisible"
           [(visible)]="isDeleteDialogVisible"
@@ -7,14 +37,14 @@
         <h3>Are you sure you want to exit from group {{selectedGroup ? selectedGroup.name : "" }} ?</h3>
     </ng-template>
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onCancel()"></button>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="onDeleteCancel()"></button>
         <button pButton pRipple label="Delete" icon="pi pi-check" class="p-button-text"
                 (click)="onDeleteConfirm()"></button>
     </ng-template>
 </p-dialog>
 
 <!--       List of groups         -->
-<div class="col-12" *ngIf="groups.length > 2">
+<div class="col-12">
     <div class="card">
         <p-table [(selection)]="selectedGroup" [value]="groups" [paginator]="true" [rows]="5" responsiveLayout="scroll">
             <ng-template pTemplate="header">
@@ -29,26 +59,27 @@
                     <th></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-group>
-                <tr>
-                    <td style="width: 15%; min-width: 5rem; padding-left: 150px">
-                        <img src="assets/demo/images/squirrels/white-brown.png" class="shadow-4" width="50">
-                    </td>
-                    <td style="width: 5%; min-width: 7rem;">{{group.name}}</td>
-                    <td style="width: 35%; min-width: 8rem;">{{group.no_part}}</td>
-                    <td style="width: 15%;">
-                        <button pButton pRipple type="button" icon="pi pi-search"
-                                class="p-button p-component p-button-text p-button-icon-only"
-                                (click)="redirectToGroup(group)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                                class="p-button p-component p-button-text p-button-icon-only"
-                                (click)="openDeleteGroupDialog(group)"></button>
-                    </td>
-                </tr>
-            </ng-template>
+                <ng-template  pTemplate="body" let-group>
+                    <tr>
+                        <td style="width: 20%; min-width: 5rem; padding-left: 70px">
+                            <img src="assets/demo/images/squirrels/white-brown.png" class="shadow-4" width="50">
+                        </td>
+                        <td style="width: 30%; min-width: 7rem; padding-left: 20px">{{group.name}}</td>
+                        <td style="width: 35%; min-width: 8rem; padding-left: 40px">{{group.no_part}}</td>
+                        <td style="width: 15%;">
+                            <button pButton pRipple type="button" icon="pi pi-search"
+                                    class="p-button p-component p-button-text p-button-icon-only"
+                                    style="border-color: darkturquoise; background: turquoise; color: yellow"
+                                    (click)="redirectToGroup(group)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                    style="margin-left: 12px; border-color: darkturquoise; background: turquoise; color: yellow"
+
+                                    class="p-button p-component p-button-text p-button-icon-only"
+                                    (click)="openDeleteGroupDialog(group)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
         </p-table>
-        <div style="margin-top: 25px; margin-left: 555px">
-            <button pButton pRipple label="Add a group" icon="pi pi-plus" style="width: 250px" (click)="onCancel()"></button>
-        </div>
+        <button pButton pRipple label="Add a group" icon="pi pi-plus" style="background: turquoise; border-color: darkturquoise; width: 250px; margin-top: 25px; margin-left:41.5%" (click)="openAddGroupDialog()"></button>
     </div>
 </div>

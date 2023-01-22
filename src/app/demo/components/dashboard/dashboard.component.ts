@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     subscription!: Subscription;
     confirmDeleteDialog: boolean = false;
     selectedGroup!: Group;
-    isLoggedIn: boolean = false;
 
     constructor(private productService: ProductService, public layoutService: LayoutService,
                 private groupService: GroupService,
@@ -33,7 +32,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.productService.getGroupList().then(data => this.groups = data);
         this.profileService.getUser().subscribe(user => this.user = user);
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },

@@ -69,6 +69,7 @@ export class RegisterComponent {
     }
     onSignUp() {
         if(this.validateAllFields()) {
+            this.user.scheduleId=0;
             this.profileService.registerUser(this.user).subscribe(api => {
                 let password = this.user.password;
                 this.user = api.user;

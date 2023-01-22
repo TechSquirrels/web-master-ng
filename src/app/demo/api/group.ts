@@ -5,7 +5,7 @@ interface permission{
 export interface Group {
     id?: number;
     name: string;
-    numberOfParticipants: number;
+    no_part: number;
     userIds: number[];
     permissions?: permission[];
 }

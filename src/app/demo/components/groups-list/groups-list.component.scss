@@ -1,6 +1,14 @@
-:host ::ng-deep .p-dialog{
+:host ::ng-deep .dialog .p-dialog {
+    width: 700px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+:host ::ng-deep .p-inputtext {
+    width: 600px;
+}
+:host ::ng-deep .p-picklist {
     width: 600px
 }
-.clickable{
-    cursor: pointer;
+:host ::ng-deep .p-picklist-header {
+    padding-left: 46px;
 }
+

@@ -3,7 +3,7 @@
     <div class="col-6">
         <!--    Unread messages     -->
 
-        <div *ngIf="this.user.token" class="card mb-0">
+        <div *ngIf="this.user.id" class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
                         <span class="block text-500 font-medium mb-3">Messages</span>
@@ -18,7 +18,7 @@
         </div>
         <!--    Invites    -->
         </div>
-        <div *ngIf="this.user.token" class="col-6">
+        <div *ngIf="this.user.id" class="col-6">
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
@@ -44,36 +44,13 @@
             </ng-template>
         </p-dialog>
         <!--       List of groups         -->
-        <div *ngIf="this.user.token" class="col-12">
-            <div class="card">-
-                <h5>List of groups</h5>
-                <p-table [(selection)]="selectedGroup" [value]="groups" [paginator]="true" [rows]="5" responsiveLayout="scroll">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th></th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="members">Members <p-sortIcon field="members"></p-sortIcon></th>
-                            <th></th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-group>
-                        <tr>
-                            <td style="width: 15%; min-width: 5rem;">
-                                <img src="assets/demo/images/product/{{group.image}}" class="shadow-4" alt="{{group.name}}" width="50">
-                            </td>
-                            <td style="width: 35%; min-width: 7rem;">{{group.name}}</td>
-                            <td style="width: 35%; min-width: 8rem;">{{group.members}}</td>
-                            <td style="width: 15%;">
-                                <button pButton pRipple type="button" icon="pi pi-search" class="p-button p-component p-button-text p-button-icon-only" (click)="redirectToGroup()"></button>
-                                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button p-component p-button-text p-button-icon-only" (click)="confirmDeleteDialogStateChange()"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+
+        <div *ngIf="this.user.id" class="col-12">
+            <h5>List of groups</h5>
+            <app-groups-list></app-groups-list>
         </div>
         <!--         Notifications        -->
-        <div *ngIf="this.user.token" class="col-12">
+        <div *ngIf="this.user.id" class="col-12">
             <div class="card">
                 <div class="flex align-items-center justify-content-between mb-4">
                     <h5>Notifications</h5>
@@ -101,8 +78,7 @@
 <!--                </ul>-->
             </div>
         </div>
-
-        <div *ngIf="!this.user.token" class="col-12">
+        <div *ngIf="!this.user.id" class="col-12">
             <div class="card shadow" style=" display: flex; flex-direction: column; align-items: center; background-color: black; padding: 20px; margin-top: 35px">
                 <h1  style="color: white; font-size: 36px; margin-bottom: 10px; margin-top:50px; padding-left: 15px!important;">Welcome to <h1 style="color:#02aec0; margin-left: 50px">SynchronizeMe</h1></h1>
                 <h3  style=" margin-top: 50px; color: #fed02c; font-size: 20px; margin-bottom: 20px;">Create your personal schedule and sync it with your friends, never double book again!</h3>

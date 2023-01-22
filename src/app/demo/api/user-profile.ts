@@ -4,4 +4,6 @@ export interface UserProfile{
     password: string;
     id: number;
     token: string;
+    scheduleId: number;
+    groups: number[];
 }

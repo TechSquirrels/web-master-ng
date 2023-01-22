@@ -25,7 +25,7 @@ export class AppMenuComponent implements OnInit {
 
     }
     setModel() {
-        if (this.user.token) {
+        if (this.user.id) {
             this.model = [
                 {
                     label: 'Home',
